@@ -1,0 +1,29 @@
+name: CI com Python
+
+# Quando o workflow deve rodar
+on:
+  push:     # sempre que houver um push
+  pull_request:  # ou quando alguém abrir um pull request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # tipo de servidor que o GitHub vai usar
+
+    steps:
+      # 1. Baixar o código do repositório
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 2. Instalar o Python
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      # 3. Instalar dependências
+      - name: Instalar pytest
+        run: pip install pytest
+
+      # 4. Rodar os testes
+      - name: Executar testes
+        run: pytest
